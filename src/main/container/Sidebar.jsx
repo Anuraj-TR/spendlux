@@ -4,9 +4,11 @@ import { FaHome } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";
 import { GoGraph } from "react-icons/go";
 import { IoPersonSharp } from "react-icons/io5";
+import { useState } from "react";
 
 export const Sidebar = () => {
   const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(0)
 
   const listItems = [
     {
@@ -51,11 +53,14 @@ export const Sidebar = () => {
               return (
                 (!item.type && (
                   <li
-                    className="w-1/5 md:w-full md:mb-4"
+                    className="w-1/5 md:w-full md:mb-2"
                     key={index}
-                    onClick={() => item.action()}
+                    onClick={() => {
+                      item.action();
+                      setActiveIndex(index)
+                    }}
                   >
-                    <div className="w-full inline-flex flex-col items-center justify-center p-1 lg:flex-row lg:justify-start text-grey  cursor-pointer md:text-white md:hover:bg-white md:rounded-lg md:hover:text-primary md:transition-all md:duration-300 md:hover:transition-all md:hover:duration-300">
+                    <div className={`w-full inline-flex flex-col items-center justify-center px-3 py-3 lg:flex-row lg:justify-start text-grey cursor-pointer md:text-white md:hover:bg-white md:rounded-2xl md:hover:text-primary md:transition-all md:duration-300 md:hover:transition-all md:hover:duration-300 ${activeIndex == index ? 'text-primary font-medium bg-white md:text-primary md:border md:border-primary md:border-solid md:hover:bg-white': ''}`}>
                       <div className="w-full flex mb-1 items-center justify-center md:w-8 md:h-8 lg:mb-0 lg:mr-2">
                         {item.icon}
                       </div>
