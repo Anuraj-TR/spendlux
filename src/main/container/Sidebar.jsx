@@ -1,91 +1,79 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// react icons
 import { FaHome } from "react-icons/fa";
-import { useState } from "react";
+import { GrTransaction } from "react-icons/gr";
+import { GoGraph } from "react-icons/go";
+import { IoPersonSharp } from "react-icons/io5";
 
 export const Sidebar = () => {
-  const [isTransitionActive, setIsTransitionActive] = useState(false);
+  const navigate = useNavigate();
+
+  const listItems = [
+    {
+      icon: <FaHome className="w-full" />,
+      label: "Home",
+      action: () => {
+        navigate("/");
+      },
+    },
+    {
+      icon: <GrTransaction className="w-full" />,
+      label: "Expense",
+      action: () => {
+        navigate("/expense");
+      },
+    },
+    {
+      type: "toggle",
+    },
+    {
+      icon: <GoGraph className="w-full" />,
+      label: "Budget",
+      action: () => {
+        navigate("/budget");
+      },
+    },
+    {
+      icon: <IoPersonSharp className="w-full" />,
+      label: "Profile",
+      action: () => {
+        navigate("/profile");
+      },
+    },
+  ];
 
   return (
     <>
-      <div className="w-full">
-        <ul className="w-full flex items-center justify-between p-2 md:flex-col ">
-          <li className="w-1/5 md:w-full md:mb-4">
-            <Link
-              to={"/"}
-              className="w-full inline-flex flex-col items-center justify-center p-1 lg:flex-row lg:justify-start"
-            >
-              <div className="w-full flex text-black mb-1 items-center justify-center md:w-8 md:h-8 lg:mb-0 lg:mr-2">
-                <FaHome className="w-full" />
-              </div>
-              <div className="text-xs md:text-lg text-center text-black">
-                Home
-              </div>
-            </Link>
-          </li>
-          <li className="w-1/5 md:w-full md:mb-4">
-            <Link
-              to={"/"}
-              className="w-full inline-flex flex-col items-center justify-center p-1 lg:flex-row lg:justify-start"
-            >
-              <div className="w-full flex text-black mb-1 items-center justify-center md:w-8 md:h-8 lg:mb-0 lg:mr-2">
-                <FaHome className="w-full" />
-              </div>
-              <div className="text-xs md:text-lg text-center text-black">
-                Home
-              </div>
-            </Link>
-          </li>
-          <li className="min-w-14 min-h-14 -translate-y-1/2 border bg-slate-400 rounded-full md:hidden">
-            <button
-              className="w-full h-full  text-blue-500 text-center lg:flex lg:items-center lg:justify-center"
-              onClick={() => setIsTransitionActive(!isTransitionActive)}
-            >
-              {!isTransitionActive ? (
-                <>
-                  <span className="hidden text-xl lg:block lg:mr-2">
-                    add new
-                  </span>
-                  <span className="text-5xl lg:text-xl">+</span>
-                </>
-              ) : (
-                <>
-                  <span className="hidden text-xl lg:block lg:mr-3">
-                    cancel
-                  </span>
-                  <span className="text-5xl text-center lg:text-xl capitalize">
-                    x
-                  </span>
-                </>
-              )}
-            </button>
-          </li>
-          <li className="w-1/5 md:w-full md:mb-4">
-            <Link
-              to={"/"}
-              className="w-full inline-flex flex-col items-center justify-center p-1 lg:flex-row lg:justify-start"
-            >
-              <div className="w-full flex text-black mb-1 items-center justify-center md:w-8 md:h-8 lg:mb-0 lg:mr-2">
-                <FaHome className="w-full" />
-              </div>
-              <div className="text-xs md:text-lg text-center text-black">
-                Home
-              </div>
-            </Link>
-          </li>
-          <li className="w-1/5 md:w-full md:mb-4">
-            <Link
-              to={"/"}
-              className="w-full inline-flex flex-col items-center justify-center p-1 lg:flex-row lg:justify-start"
-            >
-              <div className="w-full flex text-black mb-1 items-center justify-center md:w-8 md:h-8 lg:mb-0 lg:mr-2">
-                <FaHome className="w-full" />
-              </div>
-              <div className="text-xs md:text-lg text-center text-black">
-                Home
-              </div>
-            </Link>
-          </li>
-        </ul>
+      <div className="absolute bottom-0 left-0 w-full bg-white z-10 md:static md:w-1/5 lg:w-1/6 shadow-md md:mr-3 lg:mr-4 md:rounded-2xl md:bg-primary">
+        <div className="w-full">
+          <ul className="w-full flex items-center justify-between p-2 md:flex-col lg:p-4">
+            {listItems.map((item, index) => {
+              return (
+                (!item.type && (
+                  <li
+                    className="w-1/5 md:w-full md:mb-4"
+                    key={index}
+                    onClick={() => item.action()}
+                  >
+                    <div className="w-full inline-flex flex-col items-center justify-center p-1 lg:flex-row lg:justify-start text-grey  cursor-pointer md:text-white md:hover:bg-white md:rounded-lg md:hover:text-primary md:transition-all md:duration-300 md:hover:transition-all md:hover:duration-300">
+                      <div className="w-full flex mb-1 items-center justify-center md:w-8 md:h-8 lg:mb-0 lg:mr-2">
+                        {item.icon}
+                      </div>
+                      <div className="text-xs md:text-lg text-center">
+                        {item.label}
+                      </div>
+                    </div>
+                  </li>
+                )) || (
+                  <li
+                    className="min-w-14 min-h-14 border bg-slate-400 rounded-full md:hidden"
+                    key={index}
+                  ></li>
+                )
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </>
   );
