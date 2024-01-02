@@ -2,12 +2,14 @@ import { createContext, useEffect, useState } from "react";
 
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState()
   const [firebaseUser, setFirebaseUser] = useState();
+  const navigate = useNavigate();
 
 
   // google signin
@@ -19,6 +21,8 @@ export const AuthContextProvider = ({ children }) => {
   // signout
   const logOut = () => {
     signOut(auth)
+    setUser(null)
+    navigate('/signin')
   }
 
   // onAuthChange
@@ -30,8 +34,8 @@ export const AuthContextProvider = ({ children }) => {
         firstName: currentUser.displayName.split(" ")[0],
         secondName: currentUser.displayName.split(" ")[1],
         email: currentUser.email,
-        url: currentUser.photoURL,
-        phNumber: currentUser.phoneNumber,
+        imageUrl: currentUser.photoURL,
+        phoneNumber: currentUser.phoneNumber,
       });
     });
     return () => {
