@@ -22,8 +22,8 @@ export const SignUpPage = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-between h-full bg-secondry lg:flex-row-reverse">
-        <div className="w-full bg-primary min-h-[300px] flex items-center justify-center lg:w-1/2">
+      <div className="flex flex-col items-center justify-between h-screen bg-white lg:flex-row-reverse">
+        <div className="w-full min-h-[300px] flex items-center justify-center lg:w-1/2">
           <img
             src={"/assets/images/signin-bg.jpg"}
             alt="signin background image"
