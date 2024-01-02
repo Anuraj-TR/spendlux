@@ -57,10 +57,16 @@ export const Sidebar = () => {
                     key={index}
                     onClick={() => {
                       item.action();
-                      setActiveIndex(index)
+                      setActiveIndex(index);
                     }}
                   >
-                    <div className={`w-full inline-flex flex-col items-center justify-center px-3 py-3 lg:flex-row lg:justify-start text-grey cursor-pointer md:text-white md:hover:bg-white md:rounded-2xl md:hover:text-primary md:transition-all md:duration-300 md:hover:transition-all md:hover:duration-300 ${activeIndex == index ? 'text-primary font-medium bg-white md:text-primary md:border md:border-primary md:border-solid md:hover:bg-white': ''}`}>
+                    <div
+                      className={`w-full inline-flex flex-col items-center justify-center px-3 py-3 lg:flex-row lg:justify-start cursor-pointer md:rounded-2xl md:transition-all md:duration-300 md:hover:transition-all md:hover:duration-300 ${
+                        activeIndex == index
+                          ? "text-primary font-medium bg-white md:text-primary md:border md:border-primary md:border-solid md:hover:bg-white"
+                          : " text-grey md:text-white md:hover:bg-white  md:hover:text-primary"
+                      }`}
+                    >
                       <div className="w-full flex mb-1 items-center justify-center md:w-8 md:h-8 lg:mb-0 lg:mr-2">
                         {item.icon}
                       </div>
