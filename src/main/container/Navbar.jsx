@@ -1,32 +1,17 @@
-import { UserAuth } from "../context/AuthContext";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { MdWavingHand } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Navbar = () => {
-  const { user, logOut } = UserAuth();
-  const [userName, setUserName] = useState('')
-
-  const handleLogOut = async () => {
-    try {
-      await logOut()
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    setUserName(user?.displayName.split(' ')[0])
-  },[user])
+  const { user, logOut } = useAuth();
   
-
   return (
     <>
       <div className="flex items-center justify-end w-full p-2">
         <div className="inline-flex items-center capitalize p-3">
-          {userName && (
+          {user && (
             <>
-              <span>Hello {userName}</span>
+              <span>Hello {user.firstName}</span>
               <span className="ml-2">
                 <MdWavingHand size={25} color="#ffff00"/>
               </span>
@@ -34,10 +19,10 @@ export const Navbar = () => {
           )}
         </div>
         <div className="inline-flex">
-          {userName && (
+          {user && (
             <button
               className="inline-flex items-center px-4 py-2 transition-all duration-300 capitalize text-primary bg-white hover:text-white hover:bg-primary hover:border border-primary rounded-md ml-auto"
-              onClick={handleLogOut}
+              onClick={logOut}
             >
               <span className="hidden md:inline-block md:mr-2">logout</span>
               <span>

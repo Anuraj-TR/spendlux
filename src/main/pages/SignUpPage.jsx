@@ -1,18 +1,10 @@
 import { useEffect } from "react";
-import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export const SignUpPage = () => {
-  const { googleSignIn, user } = UserAuth();
+  const { googleSignIn, user } = useAuth();
   const navigate = useNavigate()
-
-  const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn()
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   useEffect(() => {
     if (user != null) {
@@ -39,7 +31,7 @@ export const SignUpPage = () => {
             spending and grow your savings automatically.
           </p>
           <div className="flex w-full p-2">
-            <button className="w-full max-w-[250px] px-4 py-2 bg-primary border border-primary rounded-md text-base font-medium text-white mx-auto" onClick={handleGoogleSignIn}>
+            <button className="w-full max-w-[250px] px-4 py-2 bg-primary border border-primary rounded-md text-base font-medium text-white mx-auto" onClick={googleSignIn}>
               Start now
             </button>
           </div>
