@@ -8,7 +8,7 @@ export const Layout = ({ children }) => {
         <Sidebar />
         <div className="w-full relative">
           <Navbar />
-          <div className="w-full p-4 h-full">{children}</div>
+          <div className="w-full h-full">{children}</div>
         </div>
       </div>
     </>
