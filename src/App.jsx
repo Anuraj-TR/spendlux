@@ -11,10 +11,13 @@ function App() {
       <AuthContextProvider>
         <Layout>
           <Routes>
+            {/* public routes */}
+            <Route path="/signin" element={<SignUpPage />} />
+
+            {/* protected routes */}
             <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<div>hello world!</div>} />
             </Route>
-            <Route path="/signin" element={<SignUpPage />} />
           </Routes>
         </Layout>
       </AuthContextProvider>
