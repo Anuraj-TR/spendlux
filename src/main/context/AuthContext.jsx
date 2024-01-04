@@ -9,18 +9,27 @@ export const AuthContext = createContext()
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState()
   const [firebaseUser, setFirebaseUser] = useState();
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate();
 
 
   // google signin
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    setLoading(true)
+    signInWithPopup(auth, provider).then(result => {
+      setLoading(false);
+      return result;
+    }).catch(err=> console.log(err))
   }
 
   // signout
   const logOut = () => {
-    signOut(auth)
+    setLoading(true);
+    signOut(auth).then(result => {
+      setLoading(false)
+      return result;
+    }).catch(err=> console.log(err))
     setUser(null)
     setFirebaseUser(null)
     navigate('/signin')
@@ -46,7 +55,7 @@ export const AuthContextProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{googleSignIn,user,firebaseUser,logOut}}>
+    <AuthContext.Provider value={{googleSignIn,user,firebaseUser,logOut,loading}}>
       {children}
     </AuthContext.Provider>
   )
