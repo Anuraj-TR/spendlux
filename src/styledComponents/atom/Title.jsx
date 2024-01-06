@@ -3,7 +3,7 @@ import { devices } from "../base/StyledComponentbase";
 
 export const SubTitle = styled.h2`
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   color: #27292c;
   text-decoration: none;
 

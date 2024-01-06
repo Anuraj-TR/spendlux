@@ -4,7 +4,7 @@ import { Layout } from "./main/container/Layout";
 import { SignUpPage } from "./main/pages/SignUpPage";
 import { AuthContextProvider } from "./main/context/AuthContext";
 import { ProtectedRoutes } from "./main/container/ProtectedRoutes";
-import { Dashborad } from "./main/modules/dashboard/pages/Dashborad";
+import { DashboradPage } from "./main/modules/dashboard/pages/DashboardPage";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
             {/* protected routes */}
             <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<Navigate to={"/dashboard"} />} />
-              <Route path="/dashboard" element={<Dashborad />} />
+              <Route path="/dashboard" element={<DashboradPage />} />
             </Route>
           </Routes>
         </Layout>
