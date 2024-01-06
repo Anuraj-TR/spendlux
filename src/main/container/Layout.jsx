@@ -19,7 +19,7 @@ export const Layout = ({ children }) => {
         <Sidebar />
         <div className="w-full relative pb-4">
           <Navbar />
-          <div className="w-full h-full overflow-y-scroll no-scrollbar px-4 md:px-6 lg:px-8">
+          <div className="w-full h-full overflow-y-scroll no-scrollbar px-3 md:px-4">
             {children}
           </div>
         </div>

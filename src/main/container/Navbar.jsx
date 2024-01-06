@@ -1,5 +1,4 @@
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { MdWavingHand } from "react-icons/md";
 import { useAuth } from "../../hooks/useAuth";
 
 export const Navbar = () => {
@@ -13,7 +12,7 @@ export const Navbar = () => {
             <>
               <span>Hello {user.firstName}</span>
               <span className="ml-2">
-                <MdWavingHand size={25} color="#ffff00"/>
+                👋
               </span>
             </>
           )}
