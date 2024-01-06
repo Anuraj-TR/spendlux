@@ -26,7 +26,7 @@ export const Layout = ({ children }) => {
           <Sidebar />
           <div className="w-full relative">
             <Navbar />
-            <div className="w-full h-full">{children}</div>
+            <div className="w-full h-full min-h-[80vh] overflow-y-scroll">{children}</div>
           </div>
         </div>
       </>
