@@ -143,6 +143,15 @@ button {
     }
   }
 
+  .unstyled {
+    -webkit-appearance: none;
+}
+.unstyled::-webkit-inner-spin-button,
+.unstyled::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
 .content-wrapper {
   width: 100%;
   max-width: 1240px;
