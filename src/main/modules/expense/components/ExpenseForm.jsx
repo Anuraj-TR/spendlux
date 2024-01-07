@@ -7,8 +7,12 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import { StyledButton } from "../../../../styledComponents";
+import { addCollectionData } from "../../../../service/firebase/expense.service";
+import { COLLECTIONS } from "../../../firebase";
+import { CATEGORIES } from "../../../consts";
 
 export const ExpenseForm = () => {
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -29,11 +33,13 @@ export const ExpenseForm = () => {
     }),
 
     onSubmit: () => {
-
+      addCollectionData(
+        COLLECTIONS.expense,
+        formik.values
+      );
+      formik.resetForm();
     },
   });
-
-  const options = ["food", "test1", "test2", "test3"];
 
   return (
     <>
@@ -159,7 +165,7 @@ export const ExpenseForm = () => {
             <option value="category" hidden>
               category
             </option>
-            {options.map((item, index) => (
+            {CATEGORIES.map((item, index) => (
               <option value={item} key={index}>
                 {item}
               </option>
