@@ -15,3 +15,7 @@ export const SubTitle = styled.h2`
     font-size: 26px;
   }
 `;
+
+export const SubTitleWhite = styled(SubTitle)`
+  color: #ffffff;
+`
