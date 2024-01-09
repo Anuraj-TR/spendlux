@@ -11,7 +11,7 @@ export const DashboardHeader = ({ handleClick }) => {
           <DashbordLink className="mr-2" onClick={handleClick}>
             Add new Expense
           </DashbordLink>
-          <DashbordLink onClick={() => navigate("/transactions")}>
+          <DashbordLink onClick={() => navigate("/expense")}>
             view all
           </DashbordLink>
         </div>

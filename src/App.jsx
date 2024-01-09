@@ -20,7 +20,7 @@ function App() {
             <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<Navigate to={"/dashboard"} />} />
               <Route path="/dashboard" element={<DashboradPage />} />
-              <Route path="/transactions" element={<TransactionPage />} />
+              <Route path="/expense" element={<TransactionPage />} />
             </Route>
           </Routes>
         </Layout>
