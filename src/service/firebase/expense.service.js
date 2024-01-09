@@ -1,4 +1,5 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+/* eslint-disable no-undef */
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../main/firebase";
 
 /**
@@ -26,3 +27,13 @@ export const addCollectionData = async (collectionName, data) => {
   
   await addDoc(collectionRef, data);
 };
+
+export const filteredCollectionByCategory = async (collectionName,category) => {
+  const collectionRef = collection(db, collectionName);
+  
+  const queryData = query(collectionRef, where("category", "==", category))
+  const response = await getDocs(queryData);
+  const data = response.docs.map(doc => doc.data())  
+  
+  return data;
+}
