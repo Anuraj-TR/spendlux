@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const DashbordLink = styled.a`
-  font-size: 18px;
+  font-size: ${(prpos)=> prpos.small ? '16px' : '18px'};
   font-weight: 500;
   color: #98a6fa;
   text-decoration: none;
