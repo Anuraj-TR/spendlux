@@ -1,7 +1,14 @@
+import { useEffect, useState } from "react";
 import ExpenseTile from "./ExpenseTile";
 
-const ExpenseTileWrap = ({ expense, date }) => {
-  console.log(date);
+const ExpenseTileWrap = ({ expense }) => {
+  const [currentDay, setCurrentDay] = useState();
+  const { day, date, month, year } = expense[0];
+
+  useEffect(() => {
+    setCurrentDay(day.slice(0, 3));
+  }, []);
+
   const totalExpence = expense.reduce((acc, cur) => {
     acc += parseInt(cur.amount);
     return acc;
@@ -12,13 +19,21 @@ const ExpenseTileWrap = ({ expense, date }) => {
         <div className="w-full flex items-center justify-between py-2">
           <div className="w-1/2 flex items-center justify-start">
             <div className="inline-block mr-2 text-xl lg:text-2xl font-semibold text-white text-center">
-              09
+              {date}
             </div>
-            <div className="inline-block mr-2 text-xs lg:text-sm font-medium text-white text-center bg-orange rounded-sm min-w-[50px] py-1 px-2">
-              Sun
+            <div
+              className={`inline-block mr-2 text-xs lg:text-sm font-medium text-white text-center rounded-sm min-w-[50px] py-1 px-2 ${
+                currentDay === "sun" || currentDay === 'Sun'
+                  ? "bg-orange"
+                  : currentDay === "sat" || currentDay === 'Sat'
+                  ? "bg-primary"
+                  : "bg-grey"
+              }`}
+            >
+              {currentDay}
             </div>
             <div className="inline-block text-xs lg:text-sm font-normal text-white text-center">
-              11.2023
+              {`${month}.${year}`}
             </div>
           </div>
           <div className="w-1/4 text-base lg:text-xl font-medium text-primary text-right">

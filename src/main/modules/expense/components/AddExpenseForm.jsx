@@ -73,6 +73,7 @@ const AddExpenseFormm = () => {
             month: dates.currentMonth,
             year: dates.currentYear,
             userId: user.userId,
+            fullDate: values.date,
           });
           resetForm();
           setSubmitting(false);

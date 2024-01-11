@@ -13,7 +13,7 @@ const ExpenseTileList = () => {
   }, []);
 
   const groupedExpenses = expense.reduce((result, expence) => {
-    const date = expence.date;
+    const date = expence.fullDate;
 
     if (result[date] == null) result[date] = [];
     result[date].push(expence);
@@ -23,7 +23,7 @@ const ExpenseTileList = () => {
   return (
     <>
       {Object.entries(groupedExpenses).map(([date, group]) => {
-        return <ExpenseTileWrap key={date} date={date} expense={group} />;
+        return <ExpenseTileWrap key={date} expense={group} />;
       })}
     </>
   );
