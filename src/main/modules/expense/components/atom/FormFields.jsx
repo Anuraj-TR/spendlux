@@ -1,4 +1,5 @@
 import { useField } from "formik";
+import './style.scss'
 
 export const FormInputField = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]

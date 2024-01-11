@@ -5,12 +5,39 @@ import { FormInputField, FormSelectField } from "./atom/FormFields";
 import { FaMoneyBillWave } from "react-icons/fa6";
 import { CgNotes } from "react-icons/cg";
 import { LiaPenAltSolid } from "react-icons/lia";
+import { FaRegCalendarXmark } from "react-icons/fa6";
+
 import { StyledButton } from "../../../../styledComponents";
 import { addCollectionData } from "../../../../service/firebase/expense.service";
 import { COLLECTIONS } from "../../../firebase";
-import { FaRegCalendarXmark } from "react-icons/fa6";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const AddExpenseFormm = () => {
+  const { user } = useAuth();
+  const setDates = (dateData) => {
+    const weekday = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    const date = new Date(dateData);
+    const currentDate = date.getDate();
+    const currentDay = weekday[date.getDay()];
+    const currentMonth = parseInt(date.getMonth()) + 1;
+    const currentYear = date.getFullYear();
+
+    return {
+      currentDate,
+      currentDay,
+      currentMonth,
+      currentYear,
+    };
+  };
   return (
     <>
       <Formik
@@ -25,8 +52,9 @@ const AddExpenseFormm = () => {
           name: Yup.string()
             .max(20, "Must be 20 characters or less")
             .required("Required"),
-          amount: Yup.number()
-            .required("Required"),
+          amount: Yup.number().required("Required"),
+          date: Yup.date()
+            .max(new Date(), 'please check the date you enterd'),
           notes: Yup.string().max(30, "Must be 30 characters or less"),
           category: Yup.string()
             // .oneOf(
@@ -35,8 +63,17 @@ const AddExpenseFormm = () => {
             // )
             .required("Required"),
         })}
-        onSubmit={(values, {resetForm, setSubmitting }) => {
-          addCollectionData(COLLECTIONS.expense, values);
+        onSubmit={(values, { resetForm, setSubmitting }) => {
+          const dates = setDates(values.date);
+
+          addCollectionData(COLLECTIONS.expense, {
+            ...values,
+            day: dates.currentDay,
+            date: dates.currentDate,
+            month: dates.currentMonth,
+            year: dates.currentYear,
+            userId: user.userId,
+          });
           resetForm();
           setSubmitting(false);
         }}
@@ -64,7 +101,7 @@ const AddExpenseFormm = () => {
             label="Date"
             name="date"
             id="date"
-            type="text"
+            type="date"
             placeholder="26-10-2023"
             icon={<FaRegCalendarXmark />}
           />
