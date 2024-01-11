@@ -1,6 +1,5 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { FormInputField, FormSelectField } from "./atom/FormFields";
 
 import { FaMoneyBillWave } from "react-icons/fa6";
 import { CgNotes } from "react-icons/cg";
@@ -11,6 +10,7 @@ import { StyledButton } from "../../../../styledComponents";
 import { addCollectionData } from "../../../../service/firebase/expense.service";
 import { COLLECTIONS } from "../../../firebase";
 import { useAuth } from "../../../../hooks/useAuth";
+import { FormInputField, FormSelectField } from "../../../../components/forms/atom/FormFields";
 
 const AddExpenseFormm = () => {
   const { user } = useAuth();
