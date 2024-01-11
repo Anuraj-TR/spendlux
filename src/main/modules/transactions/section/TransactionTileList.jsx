@@ -8,7 +8,8 @@ const TransactionTileList = () => {
 
   useEffect(() => {
     getCollectionData(COLLECTIONS.expense).then(res => setExpense(res))
-  },[])
+  }, [])
+  
   const groupedExpenses = expense.reduce((result, expence) => {
     const date = expence.date
 
@@ -17,6 +18,7 @@ const TransactionTileList = () => {
 
     return result
   }, {})
+  
   return (
     <>
       {
