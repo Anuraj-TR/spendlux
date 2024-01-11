@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { getCollectionData } from "../../../../service/firebase/expense.service";
+import { getUserCollectionData } from "../../../../service/firebase/expense.service";
 import { COLLECTIONS } from "../../../firebase";
 import { DashboardTransactionTile } from "../components/DashboardTransactionTile";
+import { useAuth } from "../../../../hooks/useAuth";
 
 export const DashboardResentTransactionList = () => {
+  const { user } = useAuth();
   const [expenses, setExpenses] = useState();
   
   useEffect(() => {
-    getCollectionData(COLLECTIONS.expense).then((data) => setExpenses(data));
+    getUserCollectionData(COLLECTIONS.expense,user.userId).then((data) =>
+      setExpenses(data)
+    );
   },[]);
 
   return (

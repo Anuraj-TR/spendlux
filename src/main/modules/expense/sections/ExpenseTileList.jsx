@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { getCollectionData } from "../../../../service/firebase/expense.service";
+import { getUserCollectionData } from "../../../../service/firebase/expense.service";
 import { COLLECTIONS } from "../../../firebase";
 import ExpenseTileWrap from "../components/ExpenseTileWrap";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const ExpenseTileList = () => {
+  const { user } = useAuth();
   const [expense, setExpense] = useState([]);
 
   useEffect(() => {
-    getCollectionData(COLLECTIONS.expense).then((res) => setExpense(res));
+    getUserCollectionData(COLLECTIONS.expense,user.userId).then((res) => setExpense(res));
   }, []);
 
   const groupedExpenses = expense.reduce((result, expence) => {
