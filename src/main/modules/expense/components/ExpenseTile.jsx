@@ -1,5 +1,4 @@
-
-const TransactionTile = ({data}) => {
+const ExpenseTile = ({data}) => {
   return (
     <>
       <div className="w-full flex items-center justify-between mb-2">
@@ -10,7 +9,9 @@ const TransactionTile = ({data}) => {
             </span>
           </div>
           <div className="flex-1 flex flex-col items-start justify-between px-1">
-            <div className="w-full text-base lg:text-lg font-medium text-body">{data.name}</div>
+            <div className="w-full text-base lg:text-lg font-medium text-body">
+              {data.name}
+            </div>
             <div className="w-full flex items-center justify-start">
               <span className="text-sm font-medium text-body text-opacity-60">
                 {data.notes}
@@ -26,4 +27,4 @@ const TransactionTile = ({data}) => {
   );
 }
 
-export default TransactionTile;
+export default ExpenseTile;

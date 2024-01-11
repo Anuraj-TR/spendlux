@@ -1,11 +1,11 @@
-import TransactionTile from "./TransactionTile";
+import ExpenseTile from "./ExpenseTile";
 
-const TransactionTileWrap = ({ expense, date }) => {
+const ExpenseTileWrap = ({ expense, date }) => {
   console.log(date);
   const totalExpence = expense.reduce((acc, cur) => {
     acc += parseInt(cur.amount);
-    return acc
-  }, 0)
+    return acc;
+  }, 0);
   return (
     <>
       <div className="w-full bg-tertiary p-3 lg:p-6 rounded-md mb-2">
@@ -22,22 +22,18 @@ const TransactionTileWrap = ({ expense, date }) => {
             </div>
           </div>
           <div className="w-1/4 text-base lg:text-xl font-medium text-primary text-right">
-            {
-              expense.income && expense.income
-            }
+            {expense.income && expense.income}
           </div>
           <div className="w-1/4 text-sm lg:text-lg font-medium text-orange text-right">
             {totalExpence}
           </div>
         </div>
-        {
-          expense.map((item, index) => {
-            return <TransactionTile data={ item} key={index} />
-          })
-        }
+        {expense.map((item, index) => {
+          return <ExpenseTile data={item} key={index} />;
+        })}
       </div>
     </>
   );
 };
 
-export default TransactionTileWrap;
+export default ExpenseTileWrap;

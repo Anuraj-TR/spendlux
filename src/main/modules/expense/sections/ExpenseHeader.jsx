@@ -1,6 +1,6 @@
 import { DashbordLink, SubTitle } from "../../../../styledComponents";
 
-export const TransactionHeaderSection = ({ handleClick }) => {
+const ExpenseHeader = ({ handleClick }) => {
   return (
     <>
       <section className="flex items-center justify-between mb-2 sticky top-0 left-0 right-0 w-full bg-white py-4">
@@ -12,3 +12,5 @@ export const TransactionHeaderSection = ({ handleClick }) => {
     </>
   );
 };
+
+export default ExpenseHeader;

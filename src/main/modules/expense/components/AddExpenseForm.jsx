@@ -10,7 +10,7 @@ import { addCollectionData } from "../../../../service/firebase/expense.service"
 import { COLLECTIONS } from "../../../firebase";
 import { FaRegCalendarXmark } from "react-icons/fa6";
 
-const ExpenseFormm = () => {
+const AddExpenseFormm = () => {
   return (
     <>
       <Formik
@@ -107,4 +107,4 @@ const ExpenseFormm = () => {
   );
 };
 
-export default ExpenseFormm;
+export default AddExpenseFormm;
