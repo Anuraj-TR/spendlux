@@ -15,12 +15,16 @@ export const AuthContextProvider = ({ children }) => {
   // google signin
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    signInWithPopup(auth, provider).then(result => {
+      return result;
+    }).catch(err=> console.log(err))
   }
 
   // signout
   const logOut = () => {
-    signOut(auth)
+    signOut(auth).then(result => {
+      return result;
+    }).catch(err=> console.log(err))
     setUser(null)
     setFirebaseUser(null)
     navigate('/signin')

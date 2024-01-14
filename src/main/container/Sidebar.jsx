@@ -46,7 +46,7 @@ export const Sidebar = () => {
 
   return (
     <>
-      <div className="absolute bottom-0 left-0 w-full bg-white z-10 md:static md:w-1/5 lg:w-1/6 shadow-md md:mr-3 lg:mr-4 md:rounded-2xl md:bg-primary">
+      <div className="fixed bottom-0 left-0 w-full bg-white z-10 md:static md:w-1/5 lg:w-1/6 shadow-md md:mr-3 lg:mr-4 md:rounded-2xl md:bg-primary">
         <div className="w-full">
           <ul className="w-full flex items-center justify-between p-2 md:flex-col lg:p-4">
             {listItems.map((item, index) => {
