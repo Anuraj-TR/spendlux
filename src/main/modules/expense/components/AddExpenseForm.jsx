@@ -1,5 +1,6 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { FormInputField, FormSelectField } from "./atom/FormFields";
 
 import { FaMoneyBillWave } from "react-icons/fa6";
 import { CgNotes } from "react-icons/cg";
@@ -10,7 +11,7 @@ import { StyledButton } from "../../../../styledComponents";
 import { addCollectionData } from "../../../../service/firebase/expense.service";
 import { COLLECTIONS } from "../../../firebase";
 import { useAuth } from "../../../../hooks/useAuth";
-import { FormInputField, FormSelectField } from "../../../../components/forms/atom/FormFields";
+import { CATEGORIES } from "../../../consts";
 
 const AddExpenseFormm = () => {
   const { user } = useAuth();
@@ -46,21 +47,20 @@ const AddExpenseFormm = () => {
           amount: "",
           notes: "",
           date: "",
-          category: "", // added for our select
+          category: "",
         }}
         validationSchema={Yup.object({
           name: Yup.string()
             .max(20, "Must be 20 characters or less")
             .required("Required"),
           amount: Yup.number().required("Required"),
-          date: Yup.date()
-            .max(new Date(), 'please check the date you enterd'),
+          date: Yup.date().max(new Date(), "please check the date you enterd"),
           notes: Yup.string().max(30, "Must be 30 characters or less"),
           category: Yup.string()
-            // .oneOf(
-            //   ["designer", "development", "product", "other"],
-            //   "Invalid Job Type"
-            // )
+            //TODO: .oneOf(
+            //     ["designer", "development", "product", "other"],
+            //      "Invalid Job Type"
+            //      )
             .required("Required"),
         })}
         onSubmit={(values, { resetForm, setSubmitting }) => {
@@ -120,18 +120,15 @@ const AddExpenseFormm = () => {
             <option value="" hidden>
               Select a category type
             </option>
-            <option value="designer" className="text-primary">
-              Designer
-            </option>
-            <option value="development" className="text-primary">
-              Developer
-            </option>
-            <option value="product" className="text-primary">
-              Product Manager
-            </option>
-            <option value="other" className="text-primary">
-              Other
-            </option>
+            {CATEGORIES.map((item, index) => {
+              return (
+                <>
+                  <option value={item} className="text-primary" key={index}>
+                    {item}
+                  </option>
+                </>
+              )
+            })}
           </FormSelectField>
 
           <div className="flex">
