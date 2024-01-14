@@ -122,11 +122,9 @@ const AddExpenseFormm = () => {
             </option>
             {CATEGORIES.map((item, index) => {
               return (
-                <>
                   <option value={item} className="text-primary" key={index}>
                     {item}
                   </option>
-                </>
               )
             })}
           </FormSelectField>

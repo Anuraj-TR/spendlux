@@ -28,6 +28,30 @@ export const addCollectionData = async (collectionName, data) => {
   await addDoc(collectionRef, data);
 };
 
+/**
+ * Retrieves user-specific data from a Firestore collection based on the userId.
+ *
+ * @param {string} collectionName - The name of the Firestore collection.
+ * @param {string} userId - The unique identifier of the user.
+ * @returns {Promise<Array>} - A promise that resolves to an array of documents matching the userId in the collection.
+ */
+
+export const getUserCollectionData = async (collectionName, userId) => {
+  const collectionRef = collection(db, collectionName);
+  const queryData = query(collectionRef, where("userId", "==", userId));
+  const response = await getDocs(queryData);
+  const data = response?.docs.map((doc) => doc.data());
+  return data;
+};
+
+/**
+ * Retrieves data from a Firestore collection filtered by a specific category.
+ *
+ * @param {string} collectionName - The name of the Firestore collection.
+ * @param {string} category - The category to filter the collection by.
+ * @returns {Promise<Array>} - A promise that resolves to an array of documents matching the category in the collection.
+ */
+
 export const filteredCollectionByCategory = async (collectionName,category) => {
   const collectionRef = collection(db, collectionName);
   
