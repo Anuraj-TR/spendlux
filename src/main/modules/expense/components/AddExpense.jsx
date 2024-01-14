@@ -10,7 +10,7 @@ const AddExpense = ({ handleClick, isExpensePopUpActive }) => {
           isExpensePopUpActive ? "block" : "hidden"
         }`}
         onClick={(e) =>
-          e.target.classList.contains("w-screen") ? handleClick() : ""
+          e.target.classList.contains("w-screen") ? handleClick() : null
         }
       >
         <div className="w-full max-w-[500px] bg-primary h-auto min-h-[500px] rounded-lg p-4">
