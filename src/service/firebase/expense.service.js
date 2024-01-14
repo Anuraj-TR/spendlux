@@ -11,7 +11,7 @@ import { db } from "../../main/firebase";
 export const getCollectionData = async (collectionName) => {
   const collectionRef = collection(db, collectionName);
   const response = await getDocs(collectionRef);
-  const data = response?.docs.map((doc) => doc.data());
+  const data = response?.docs.map((doc) => ({...doc.data(),id:doc.id}));
   return data;
 };
 

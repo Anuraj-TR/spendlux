@@ -1,7 +1,7 @@
-export const DashboardTransactionTile = ({expense}) => {
+export const DashboardTransactionTile = ({ expense }) => {
   return (
     <>
-      <div className="flex w-full bg-secondry border border-secondry p-3 shadow shadow-secondry items-center justify-between rounded-md mb-4">
+      <div className="flex w-full bg-secondry border border-secondry p-3 shadow shadow-secondry items-center justify-between rounded-md mb-4" onClick={()=>console.log(expense.id)}>
         <div className="flex flex-col items-start justify-start w-2/3">
           <div className="w-full text-lg text-black font-medium mb-1">
             {expense.name}
