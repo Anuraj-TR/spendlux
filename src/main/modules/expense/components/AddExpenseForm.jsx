@@ -1,6 +1,10 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { FormInputField, FormSelectField } from "./atom/FormFields";
+import {
+  FormFieldDate,
+  FormInputField,
+  FormSelectField,
+} from "./atom/FormFields";
 
 import { FaMoneyBillWave } from "react-icons/fa6";
 import { CgNotes } from "react-icons/cg";
@@ -46,7 +50,7 @@ const AddExpenseFormm = () => {
           name: "",
           amount: "",
           notes: "",
-          date: "",
+          date: new Date(),
           category: "",
         }}
         validationSchema={Yup.object({
@@ -54,7 +58,9 @@ const AddExpenseFormm = () => {
             .max(20, "Must be 20 characters or less")
             .required("Required"),
           amount: Yup.number().required("Required"),
-          date: Yup.date().max(new Date(), "please check the date you enterd"),
+          date: Yup.date()
+            .max(new Date(), "please check the date you enterd")
+            .required("Required"),
           notes: Yup.string().max(30, "Must be 30 characters or less"),
           category: Yup.string()
             //TODO: .oneOf(
@@ -98,12 +104,10 @@ const AddExpenseFormm = () => {
             icon={<FaMoneyBillWave />}
           />
 
-          <FormInputField
+          <FormFieldDate
             label="Date"
             name="date"
             id="date"
-            type="date"
-            placeholder="26-10-2023"
             icon={<FaRegCalendarXmark />}
           />
 
@@ -122,10 +126,10 @@ const AddExpenseFormm = () => {
             </option>
             {CATEGORIES.map((item, index) => {
               return (
-                  <option value={item} className="text-primary" key={index}>
-                    {item}
-                  </option>
-              )
+                <option value={item} className="text-primary" key={index}>
+                  {item}
+                </option>
+              );
             })}
           </FormSelectField>
 
