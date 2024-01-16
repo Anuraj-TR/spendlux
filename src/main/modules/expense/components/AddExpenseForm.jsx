@@ -5,6 +5,9 @@ import {
   FormInputField,
   FormSelectField,
 } from "./atom/FormFields";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 import { FaMoneyBillWave } from "react-icons/fa6";
 import { CgNotes } from "react-icons/cg";
@@ -80,7 +83,7 @@ const AddExpenseFormm = () => {
             year: dates.currentYear,
             userId: user.userId,
             fullDate: values.date,
-          });
+          }).then(() => toast("💸 Expense added successfully"));
           resetForm();
           setSubmitting(false);
         }}
@@ -100,7 +103,7 @@ const AddExpenseFormm = () => {
             name="amount"
             id="amount"
             type="text"
-            placeholder="1000"
+            placeholder="eg:1000"
             icon={<FaMoneyBillWave />}
           />
 
@@ -137,7 +140,7 @@ const AddExpenseFormm = () => {
             <StyledButton
               $white
               type="submit"
-              disabled={!(Formik.isValid)}
+              disabled={Formik.isSubmitting}
               className="mx-auto my-3"
             >
               Submit
@@ -145,6 +148,7 @@ const AddExpenseFormm = () => {
           </div>
         </Form>
       </Formik>
+      <ToastContainer />
     </>
   );
 };
