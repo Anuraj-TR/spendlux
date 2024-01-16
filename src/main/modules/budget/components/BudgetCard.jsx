@@ -1,10 +1,23 @@
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../../hooks/useAuth";
 import { StyledButton } from "../../../../styledComponents";
+import { getUserCollectionData } from "../../../../service/firebase/expense.service";
+import { COLLECTIONS } from "../../../firebase";
 
 const BudgetCard = ({ handleClick }) => {
   const { user } = useAuth();
+  const [budgetData, setBudgetData] = useState();
+  useEffect(() => {
+    getUserCollectionData(COLLECTIONS.budget, user.userId).then(data => {
+      console.log(data);
+      setBudgetData(data);
+    })
+  },[])
   return (
     <>
+      {
+        budgetData
+          ? 
       <div className="w-full min-h-[300px] bg-primary rounded-lg flex flex-col items-center justify-start p-3 md:flex-row-reverse lg:max-w-[60%]">
         <div className="w-full md:w-2/5 flex items-center justify-center">
           <img
@@ -27,6 +40,8 @@ const BudgetCard = ({ handleClick }) => {
           </div>
         </div>
       </div>
+          : null
+      }
     </>
   );
 };
