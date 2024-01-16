@@ -134,7 +134,12 @@ const AddExpenseFormm = () => {
           </FormSelectField>
 
           <div className="flex">
-            <StyledButton $white type="submit" className="mx-auto my-3">
+            <StyledButton
+              $white
+              type="submit"
+              disabled={!(Formik.isValid)}
+              className="mx-auto my-3"
+            >
               Submit
             </StyledButton>
           </div>
