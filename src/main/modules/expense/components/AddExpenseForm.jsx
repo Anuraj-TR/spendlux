@@ -74,16 +74,24 @@ const AddExpenseFormm = () => {
         })}
         onSubmit={(values, { resetForm, setSubmitting }) => {
           const dates = setDates(values.date);
+          toast.promise(
+            () =>
+              addCollectionData(COLLECTIONS.expense, {
+                ...values,
+                day: dates.currentDay,
+                date: dates.currentDate,
+                month: dates.currentMonth,
+                year: dates.currentYear,
+                userId: user.userId,
+                fullDate: values.date.toLocaleDateString(),
+              }),
+            {
+              pending: "Promise is pending",
+              success: "Promise resolved 👌",
+              error: "Promise rejected 🤯",
+            }
+          );
 
-          addCollectionData(COLLECTIONS.expense, {
-            ...values,
-            day: dates.currentDay,
-            date: dates.currentDate,
-            month: dates.currentMonth,
-            year: dates.currentYear,
-            userId: user.userId,
-            fullDate: values.date,
-          }).then(() => toast("💸 Expense added successfully"));
           resetForm();
           setSubmitting(false);
         }}
@@ -148,7 +156,7 @@ const AddExpenseFormm = () => {
           </div>
         </Form>
       </Formik>
-      <ToastContainer />
+      <ToastContainer autoClose={1500} />
     </>
   );
 };
