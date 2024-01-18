@@ -86,3 +86,18 @@ export const queryCollection = async (collectionName, userId, month, year) => {
   const data = response?.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   return data;
 };
+
+
+/**
+ * Updates a Firestore document in a specified collection.
+ *
+ * @param {string} collectionName - The name of the Firestore collection.
+ * @param {string} documentName - The name of the Firestore document to be updated.
+ * @param {Object} data - The data to be updated in the document.
+ * @returns {Promise<void>} - A promise that resolves when the document is successfully updated.
+ */
+export const updateFirebaseDocument = async (collectionName, documentName, data) => {
+  const collectionRef = doc(db, collectionName, documentName);
+
+  await updateDoc(collectionRef, data);
+};
