@@ -27,6 +27,7 @@ function App() {
           </Routes>
         </Layout>
       </AuthContextProvider>
+      
     </>
   );
 }
