@@ -86,9 +86,9 @@ const AddExpenseForm = () => {
                 fullDate: values.date.toLocaleDateString(),
               }),
             {
-              pending: "Promise is pending",
-              success: "Promise resolved 👌",
-              error: "Promise rejected 🤯",
+              pending: "Adding Expense",
+              success: "Expense added 👌",
+              error: "Try agin 🤯",
             }
           );
 
