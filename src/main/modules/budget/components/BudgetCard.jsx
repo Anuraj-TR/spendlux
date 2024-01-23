@@ -9,10 +9,9 @@ const BudgetCard = ({ handleClick }) => {
   const [budgetData, setBudgetData] = useState();
   useEffect(() => {
     getUserCollectionData(COLLECTIONS.budget, user.userId).then(data => {
-      console.log(data);
       setBudgetData(data);
     })
-  },[])
+  },[user.userId])
   return (
     <>
       {

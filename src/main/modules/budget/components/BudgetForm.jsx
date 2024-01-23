@@ -3,11 +3,12 @@ import * as Yup from "yup";
 import { GiPiggyBank } from "react-icons/gi";
 import { FaRegCalendarXmark } from "react-icons/fa6";
 
-import { FormInputField } from "../../../../components/forms/atom/FormFields";
+import { FormFieldDate, FormInputField } from "../../../../components/forms/atom/FormFields";
 import { COLLECTIONS } from "../../../firebase";
 import { addCollectionData } from "../../../../service/firebase/expense.service";
 import { StyledButton } from "../../../../styledComponents";
 import { useAuth } from "../../../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const BudgetForm = () => {
   const { user } = useAuth();
@@ -40,24 +41,33 @@ const BudgetForm = () => {
       <Formik
         initialValues={{
           budget: "",
+          date: new Date(),
         }}
         validationSchema={Yup.object({
           budget: Yup.number().required("Enter a valid number"),
-          date: Yup.date().required("Required"),
+          date: Yup.date()
+            .max(new Date(), "please check the date you enterd")
+            .required("Required"),
         })}
         onSubmit={(values, { resetForm, setSubmitting }) => {
           const dates = setDates(values.date);
-
-          addCollectionData(COLLECTIONS.budget, {
-            ...values,
-            current_spend: 0,
-            day: dates.currentDay,
-            date: dates.currentDate,
-            month: dates.currentMonth,
-            year: dates.currentYear,
-            fullDate: values.date,
-            userId: user.userId,
-          });
+          toast.promise(
+            () =>
+              addCollectionData(COLLECTIONS.expense, {
+                ...values,
+                day: dates.currentDay,
+                date: dates.currentDate,
+                month: dates.currentMonth,
+                year: dates.currentYear,
+                userId: user.userId,
+                fullDate: values.date.toLocaleDateString(),
+              }),
+            {
+              pending: "Adding New Budget",
+              success: "Budget added 👌",
+              error: "Try agin 🤯",
+            }
+          );
           resetForm();
           setSubmitting(false);
         }}
@@ -68,16 +78,16 @@ const BudgetForm = () => {
             name="budget"
             id="budget"
             type="text"
-            placeholder="Budget"
+            placeholder="Eg: 20000"
             icon={<GiPiggyBank />}
           />
 
-          <FormInputField
-            label="Target Date"
+          <FormFieldDate
+            label="Date"
             name="date"
             id="date"
-            type="date"
-            placeholder="26-10-2023"
+            dateFormat="MMMM yyyy"
+            showMonthYearPicker
             icon={<FaRegCalendarXmark />}
           />
 
