@@ -3,16 +3,21 @@ import { queryCollection } from "../../../../service/firebase/expense.service";
 import { COLLECTIONS } from "../../../firebase";
 import ExpenseTileWrap from "../components/ExpenseTileWrap";
 import { useAuth } from "../../../../hooks/useAuth";
+import MonthSelectorButton from "../components/MonthSelector";
 
 const ExpenseTileList = () => {
   const { user } = useAuth();
   const [expense, setExpense] = useState([]);
-  const [number, setNumber] = useState(1);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const [month, setmonth] = useState(new Date(selectedDate))
+
   useEffect(() => {
-    queryCollection(COLLECTIONS.expense, user.userId, number, 2023).then(
+    setmonth(selectedDate.getMonth() + 1);
+    queryCollection(COLLECTIONS.expense, user.userId, month, selectedDate.getFullYear()).then(
       (res) => setExpense(res)
     );
-  }, [number, user.userId]);
+  }, [month,selectedDate, user.userId]);
 
   // grouping expenses
   const groupedExpenses = expense.reduce((result, expence) => {
@@ -28,7 +33,7 @@ const ExpenseTileList = () => {
 
   return (
     <>
-      <div onClick={() => setNumber(number + 1)}>test{number}</div>
+      <MonthSelectorButton selectedDate={ selectedDate} setSelectedDate={setSelectedDate} />
       {sortedGroupedExpenceTwo.map(([date, group]) => {
         return <ExpenseTileWrap key={date} expense={group} />;
       })}
