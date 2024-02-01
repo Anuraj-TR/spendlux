@@ -1,6 +1,7 @@
 import { useState } from "react";
 import BudgetCard from "../components/BudgetCard";
 import BudgetPopUp from "../components/BudgetPopUp";
+import BudgetList from "../sections/BudgetList";
 
 const BudgetPage = () => {
     const [isBudgetPopUpActive, setIsExpensePopUpActive] = useState(false);
@@ -13,6 +14,7 @@ const BudgetPage = () => {
   return (
     <>
       <BudgetCard handleClick={togleBudgetPopUp} />
+      <BudgetList />
       <BudgetPopUp handleClick={togleBudgetPopUp} isBudgetPopUpActive={isBudgetPopUpActive}/>
     </>
   );

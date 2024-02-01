@@ -53,13 +53,14 @@ const BudgetForm = () => {
           const dates = setDates(values.date);
           toast.promise(
             () =>
-              addCollectionData(COLLECTIONS.expense, {
+              addCollectionData(COLLECTIONS.budget, {
                 ...values,
                 day: dates.currentDay,
                 date: dates.currentDate,
                 month: dates.currentMonth,
                 year: dates.currentYear,
                 userId: user.userId,
+                current_spend: 0,
                 fullDate: values.date.toLocaleDateString(),
               }),
             {
