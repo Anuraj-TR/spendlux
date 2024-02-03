@@ -26,7 +26,7 @@ const BudgetPreviousCard = ({ budget }) => {
         } bg-opacity-15 p-3 rounded-md border border-solid border-opacity-15 w-full mb-4 md:w-[calc(50%-16px)] md:mx-2 lg:w-[calc(33.33%-32px)] lg:mx-4 lg:p-6`}
       >
         <div className="text-sm font-medium text-right capitalize mb-3">
-          {month}
+          {month + ' ' + budget.year}
         </div>
         <div className="text-xl font-medium text-center capitalize mb-4">
           <span className="inline-block w-full">{savings}</span>

@@ -25,7 +25,7 @@ const BudgetChartCard = ({ data }) => {
 
   return (
     <>
-      <div className="w-full max-w-[500px] text-base font-medium">
+      <div className="w-full max-w-[400px] text-base font-medium">
         <ResponsiveContainer width="100%" height={150}>
           <RadialBarChart
             width="100%"
