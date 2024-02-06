@@ -1,6 +1,6 @@
 import { IoMdClose } from "react-icons/io";
 import { SubTitleWhite } from "../../../../styledComponents";
-import AddExpenseFormm from "./AddExpenseForm";
+import AddExpenseForm from "./AddExpenseForm";
 
 const AddExpense = ({ handleClick, isExpensePopUpActive }) => {
   return (
@@ -25,7 +25,7 @@ const AddExpense = ({ handleClick, isExpensePopUpActive }) => {
               <IoMdClose size={25} className="text-white" />
             </div>
           </div>
-          <AddExpenseFormm />
+          <AddExpenseForm />
         </div>
       </div>
     </>

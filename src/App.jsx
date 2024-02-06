@@ -6,6 +6,7 @@ import { AuthContextProvider } from "./main/context/AuthContext";
 import { ProtectedRoutes } from "./main/container/ProtectedRoutes";
 import { DashboradPage } from "./main/modules/dashboard/pages/DashboardPage";
 import ExpensePage from "./main/modules/expense/pages/ExpensePage";
+import PageNotFound from "./main/pages/PageNotFound";
 
 function App() {
   return (
@@ -22,9 +23,11 @@ function App() {
               <Route path="/dashboard" element={<DashboradPage />} />
               <Route path="/expense" element={<ExpensePage />} />
             </Route>
+            <Route path="*" element={ <PageNotFound />} />
           </Routes>
         </Layout>
       </AuthContextProvider>
+      
     </>
   );
 }

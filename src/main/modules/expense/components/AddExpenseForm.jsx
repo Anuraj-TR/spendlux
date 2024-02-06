@@ -13,7 +13,7 @@ import { COLLECTIONS } from "../../../firebase";
 import { useAuth } from "../../../../hooks/useAuth";
 import { CATEGORIES } from "../../../consts";
 
-const AddExpenseFormm = () => {
+const AddExpenseForm = () => {
   const { user } = useAuth();
   const setDates = (dateData) => {
     const weekday = [
@@ -140,4 +140,4 @@ const AddExpenseFormm = () => {
   );
 };
 
-export default AddExpenseFormm;
+export default AddExpenseForm;
