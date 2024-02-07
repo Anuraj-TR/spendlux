@@ -1,6 +1,13 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { FormInputField, FormSelectField } from "./atom/FormFields";
+import {
+  FormFieldDate,
+  FormInputField,
+  FormSelectField,
+} from "./atom/FormFields";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 import { FaMoneyBillWave } from "react-icons/fa6";
 import { CgNotes } from "react-icons/cg";
@@ -46,7 +53,7 @@ const AddExpenseForm = () => {
           name: "",
           amount: "",
           notes: "",
-          date: "",
+          date: new Date(),
           category: "",
         }}
         validationSchema={Yup.object({
@@ -54,7 +61,9 @@ const AddExpenseForm = () => {
             .max(20, "Must be 20 characters or less")
             .required("Required"),
           amount: Yup.number().required("Required"),
-          date: Yup.date().max(new Date(), "please check the date you enterd"),
+          date: Yup.date()
+            .max(new Date(), "please check the date you enterd")
+            .required("Required"),
           notes: Yup.string().max(30, "Must be 30 characters or less"),
           category: Yup.string()
             //TODO: .oneOf(
@@ -65,16 +74,24 @@ const AddExpenseForm = () => {
         })}
         onSubmit={(values, { resetForm, setSubmitting }) => {
           const dates = setDates(values.date);
+          toast.promise(
+            () =>
+              addCollectionData(COLLECTIONS.expense, {
+                ...values,
+                day: dates.currentDay,
+                date: dates.currentDate,
+                month: dates.currentMonth,
+                year: dates.currentYear,
+                userId: user.userId,
+                fullDate: values.date.toLocaleDateString(),
+              }),
+            {
+              pending: "Adding Expense",
+              success: "Expense added 👌",
+              error: "Try agin 🤯",
+            }
+          );
 
-          addCollectionData(COLLECTIONS.expense, {
-            ...values,
-            day: dates.currentDay,
-            date: dates.currentDate,
-            month: dates.currentMonth,
-            year: dates.currentYear,
-            userId: user.userId,
-            fullDate: values.date,
-          });
           resetForm();
           setSubmitting(false);
         }}
@@ -94,16 +111,14 @@ const AddExpenseForm = () => {
             name="amount"
             id="amount"
             type="text"
-            placeholder="1000"
+            placeholder="eg:1000"
             icon={<FaMoneyBillWave />}
           />
 
-          <FormInputField
+          <FormFieldDate
             label="Date"
             name="date"
             id="date"
-            type="date"
-            placeholder="26-10-2023"
             icon={<FaRegCalendarXmark />}
           />
 
@@ -122,20 +137,26 @@ const AddExpenseForm = () => {
             </option>
             {CATEGORIES.map((item, index) => {
               return (
-                  <option value={item} className="text-primary" key={index}>
-                    {item}
-                  </option>
-              )
+                <option value={item} className="text-primary" key={index}>
+                  {item}
+                </option>
+              );
             })}
           </FormSelectField>
 
           <div className="flex">
-            <StyledButton $white type="submit" className="mx-auto my-3">
+            <StyledButton
+              $white
+              type="submit"
+              disabled={Formik.isSubmitting}
+              className="mx-auto my-3"
+            >
               Submit
             </StyledButton>
           </div>
         </Form>
       </Formik>
+      <ToastContainer autoClose={1500} />
     </>
   );
 };

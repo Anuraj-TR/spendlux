@@ -1,4 +1,4 @@
-export const DashboardTransactionTile = ({expense}) => {
+export const DashboardTransactionTile = ({ expense }) => {
   return (
     <>
       <div className="flex w-full bg-secondry border border-secondry p-3 shadow shadow-secondry items-center justify-between rounded-md mb-4">

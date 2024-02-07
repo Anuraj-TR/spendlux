@@ -11,7 +11,7 @@ import { db } from "../../main/firebase";
 export const getCollectionData = async (collectionName) => {
   const collectionRef = collection(db, collectionName);
   const response = await getDocs(collectionRef);
-  const data = response?.docs.map((doc) => doc.data());
+  const data = response?.docs.map((doc) => ({...doc.data(),id:doc.id}));
   return data;
 };
 
@@ -25,7 +25,7 @@ export const getCollectionData = async (collectionName) => {
 export const addCollectionData = async (collectionName, data) => {
   const collectionRef = collection(db, collectionName);
   
-  await addDoc(collectionRef, data);
+  return await addDoc(collectionRef, data);
 };
 
 /**
@@ -61,6 +61,32 @@ export const filteredCollectionByCategory = async (collectionName,category) => {
   
   return data;
 }
+
+/**
+ * Queries a Firestore collection based on specified parameters.
+ *
+ * @param {string} collectionName - The name of the Firestore collection to query.
+ * @param {string} userId - The user ID to filter the collection by.
+ * @param {number} month - The month to filter the collection by.
+ * @param {number} year - The year to filter the collection by.
+ *
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of objects representing the documents in the queried collection.
+ * Each object includes the document data along with an 'id' property representing the document ID.
+ */
+
+export const queryCollection = async (collectionName, userId, month, year) => {
+  const collectionRef = collection(db, collectionName);
+  const queryData = query(
+    collectionRef,
+    where("userId", "==", userId),
+    where("month", "==", month),
+    where("year", "==", year)
+  );
+  const response = await getDocs(queryData);
+  const data = response?.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  return data;
+};
+
 
 /**
  * Updates a Firestore document in a specified collection.

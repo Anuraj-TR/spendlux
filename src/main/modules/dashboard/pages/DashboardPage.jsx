@@ -8,7 +8,6 @@ export const DashboradPage = () => {
 
   const togleExpensePopUp = () => {
     setIsExpensePopUpActive(!isExpensePopUpActive)
-    console.log(isExpensePopUpActive);
   }
 
   return (
