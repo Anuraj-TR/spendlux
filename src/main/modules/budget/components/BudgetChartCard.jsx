@@ -9,11 +9,13 @@ import {
 
 const BudgetChartCard = ({ data }) => {
   const [currentSpend, setCurrentSpend] = useState();
-  const values = [{ name: "L1", value: currentSpend }];
   const [safeToSpend, setSafeToSpend] = useState();
+  const [budget, setBudget] = useState();
+  const values = [{ name: "L1", value: currentSpend }];
 
   useEffect(() => {
     setCurrentSpend(data[0].current_spend);
+    setBudget(parseInt(data[0].budget))
     setSafeToSpend(() => {
       const now = moment()
       const end = moment().endOf('month')
@@ -41,8 +43,7 @@ const BudgetChartCard = ({ data }) => {
           >
             <PolarAngleAxis
               type="number"
-              // TODO : Replace the domain values by variables
-              domain={[0, 10000]}
+              domain={[0, budget]}
               angleAxisId={0}
               tick={false}
             />
@@ -100,7 +101,14 @@ const BudgetChartCard = ({ data }) => {
           </RadialBarChart>
         </ResponsiveContainer>
         <div className="w-full text-center text-lg font-medium text-primary">
-          safe to spend : <span className="text-xl font-semibold">{ safeToSpend }</span>
+          {safeToSpend > 0 ? (
+            <span>
+              safe to spend :{" "}
+              <span className="text-xl font-semibold">{safeToSpend}</span>
+            </span>
+          ) : (
+            <span className="text-orange">You have gone over the budget</span>
+          )}
         </div>
       </div>
     </>
