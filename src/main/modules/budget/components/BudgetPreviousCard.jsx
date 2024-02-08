@@ -31,7 +31,12 @@ const BudgetPreviousCard = ({ budget }) => {
         <div className="text-xl font-medium text-center capitalize mb-4">
           <span className="inline-block w-full">{savings}</span>
           <span className="inline-block w-full text-base font-normal">
-            saved!
+            {
+              savings > 0
+                ? "saved!"
+                : "spend!"
+            }
+            
           </span>
         </div>
         <div className="flex items-center justify-between text-base font-medium  text-center capitalize">
